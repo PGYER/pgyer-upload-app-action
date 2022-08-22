@@ -1,0 +1,36 @@
+name: 'This action uploads an application file to PGYER'
+description: 'Greet your app distribution and save the time'
+inputs:
+  _api_key:
+    description: 'An api key of PGYER. Required but this can be passed through environment variables and environment variable is preferred.'
+    required: true
+  appFilePath:
+    description: 'A path to an app file on your workflow directory'
+    required: true
+  buildInstallType:
+    description: 'build install type'
+    required: false
+  buildPassword:
+    description: 'install password'
+    required: false
+  buildUpdateDescription:
+    description: 'build update description'
+    required: false
+  buildInstallDate:
+    description: 'build install date'
+    required: false
+  buildInstallStartDate:
+    description: 'build install start date'
+    required: false
+  buildInstallEndDate:
+    description: 'build install end date'
+    required: false
+  buildChannelShortcut:
+    description: 'build channel shortcut'
+    required: false
+outputs:
+  info:
+    description: 'app information'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
