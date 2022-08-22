@@ -1,6 +1,5 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-
 const PGYERAppUploader = require('./PGYERAppUploader');
 
 try {
@@ -11,7 +10,7 @@ try {
 
   // get file ext
   const ext = appFilePath.split('.').pop().toLowerCase();
-  const builtType = 'android';
+  let builtType = 'android';
   if (ext == 'ipa') {
     builtType = 'ios';
   }
@@ -20,7 +19,7 @@ try {
   const uploadOptions = {
     buildType: builtType,
     filePath: appFilePath,
-    log: true,
+    log: false,
     buildInstallType: buildInstallType,
     buildPassword: buildPassword
   }

@@ -23,6 +23,9 @@ Add this action to steps.
 ## Release        
 
     ncc build index.js --license licenses.txt
+    git tag -a -m "release notes" v1.1
+    git push --follow-tags
+
 
 ## Links
 
