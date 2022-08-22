@@ -15,7 +15,7 @@ Please make sure your workflow will run when a branch is pushed.
 
 Add this action to steps.
 
-    uses: PGYER/pgyer-upload-app-action@<version>
+    uses: PGYER/pgyer-upload-app-action@v1.3
       with:
         _api_key: ${{ secrets.PGYER_API_TOKEN }} # for example
         appFilePath: /path/to/app_file
@@ -23,7 +23,7 @@ Add this action to steps.
 ## Release        
 
     ncc build index.js --license licenses.txt
-    git tag -a -m "release notes" v1.1
+    git tag -a -m "release notes" v1.3
     git push --follow-tags
 
 
