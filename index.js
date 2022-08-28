@@ -51,7 +51,7 @@ try {
   const uploader = new PGYERAppUploader(apiKey);
   uploader.upload(uploadOptions).then(function (info) {
     core.info(`upload success. app info:`);
-    core.info(info);
+    core.info(JSON.stringify(info));
     core.setOutput("app", info);
   }).catch(console.error);
 
