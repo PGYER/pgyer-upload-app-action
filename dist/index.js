@@ -11487,7 +11487,7 @@ try {
     core.warning(`Unsupported file type: ${ext}`);
   }
 
-  core.info(`filePath: ${filePath}`);
+  core.info(`filePath: ${appFilePath}`);
   core.info(`buildType: ${uploadOptions.buildType}`);
 
   const uploader = new PGYERAppUploader(apiKey);
