@@ -11474,8 +11474,8 @@ try {
     let value = core.getInput(name);
     if (value) {
       uploadOptions[[name]] = value;
+      core.info(`set ${name}: ${value}`);
     }
-    core.info(`set ${name}: ${value}`);
   });
 
   const ext = appFilePath.split('.').pop().toLowerCase();
@@ -11492,7 +11492,8 @@ try {
 
   const uploader = new PGYERAppUploader(apiKey);
   uploader.upload(uploadOptions).then(function (info) {
-    core.info(`upload success. app info: ${info}`);
+    core.info(`upload success. app info:`);
+    core.info(info);
     core.setOutput("app", info);
   }).catch(console.error);
 
