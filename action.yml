@@ -34,3 +34,6 @@ outputs:
 runs:
   using: 'node16'
   main: 'dist/index.js'
+branding:
+  icon: 'upload-cloud'
+  color: 'green'
