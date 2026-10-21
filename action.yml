@@ -1,39 +1,70 @@
-name: 'This action uploads an application file to PGYER'
-description: 'Greet your app distribution and save the time'
-inputs:
-  _api_key:
-    description: 'An api key of PGYER. Required but this can be passed through environment variables and environment variable is preferred.'
-    required: true
-  appFilePath:
-    description: 'A path to an app file on your workflow directory'
-    required: true
-  buildInstallType:
-    description: 'build install type'
-    required: false
-  buildPassword:
-    description: 'install password'
-    required: false
-  buildUpdateDescription:
-    description: 'build update description'
-    required: false
-  buildInstallDate:
-    description: 'build install date'
-    required: false
-  buildInstallStartDate:
-    description: 'build install start date'
-    required: false
-  buildInstallEndDate:
-    description: 'build install end date'
-    required: false
-  buildChannelShortcut:
-    description: 'build channel shortcut'
-    required: false
-outputs:
-  info:
-    description: 'app information'
-runs:
-  using: 'node16'
-  main: 'dist/index.js'
+name: 'Upload App to PGYER'
+description: 'Upload Android (.apk), iOS (.ipa) and HarmonyOS (.hap) builds to PGYER for beta distribution.'
+author: 'PGYER'
 branding:
   icon: 'upload-cloud'
   color: 'green'
+
+inputs:
+  _api_key:
+    description: 'Your PGYER API key (https://www.pgyer.com/account/api). Store it as a repository secret, such as PGYER_API_KEY, instead of writing it in the workflow.'
+    required: true
+  appFilePath:
+    description: 'Path to the .apk, .ipa or .hap file to upload. The app type comes from the file extension.'
+    required: true
+  buildInstallType:
+    description: 'How people install the build: 1 = public, 2 = password, 3 = invitation only. If not set, PGYER keeps the setting of the previous version (password install when buildPassword is set).'
+    required: false
+  buildPassword:
+    description: 'Install password. Setting it without buildInstallType selects password install.'
+    required: false
+  buildDescription:
+    description: 'App description shown on the download page.'
+    required: false
+  buildUpdateDescription:
+    description: 'Release notes for this build.'
+    required: false
+  buildInstallDate:
+    description: 'Set to 2 to remove an install period set earlier. You do not need 1: setting both dates below limits the install period.'
+    required: false
+  buildInstallStartDate:
+    description: 'First day the build can be installed, such as 2026-01-01. Set together with buildInstallEndDate.'
+    required: false
+  buildInstallEndDate:
+    description: 'Last day the build can be installed, such as 2026-12-31. Set together with buildInstallStartDate.'
+    required: false
+  buildChannelShortcut:
+    description: 'Short link of the download channel to update, such as abcd. Only one channel.'
+    required: false
+  oversea:
+    description: 'true to use the overseas upload acceleration, false to use the mainland China one. If not set, PGYER chooses by the IP address of the runner.'
+    required: false
+  processingTimeout:
+    description: 'Seconds to wait for PGYER to process the build after the upload.'
+    required: false
+    default: '600'
+  downloadFileName:
+    description: 'File name people get when they download the build, such as MyApp-1.2.3.apk. Plain ASCII only. Defaults to the name of the uploaded file.'
+    required: false
+
+outputs:
+  info:
+    description: 'All the build information PGYER returned, as a JSON string.'
+  buildKey:
+    description: 'Build key, which identifies this build on PGYER.'
+  buildVersion:
+    description: 'Version name, such as 1.2.3.'
+  buildBuildVersion:
+    description: 'Build number PGYER assigned to this upload of the app.'
+  buildShortcutUrl:
+    description: 'Short link of the app, such as abcd.'
+  appPgyerURL:
+    description: 'Download page of the app, such as https://www.pgyer.com/abcd.'
+  appBuildURL:
+    description: 'Download page of this build.'
+  buildQRCodeURL:
+    description: 'URL of the QR code image for installing the build.'
+
+runs:
+  using: 'node24'
+  main: 'dist/index.js'
